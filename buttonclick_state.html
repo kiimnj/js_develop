@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script type="text/babel">
+    const root = document.getElementById("root");
+
+    function p() {
+        //함수형 컴포넌트
+        return (<p id="count" onMouseEnter={() => console.log("mouse enter 이벤트 발생")}>
+            0번 클릭했습니다
+            </p>)
+    } 
+    const Btn = () =>
+    (<button onClick = {increaseCount}>
+            클릭하세요
+        </button>);
+        
+    function App() {
+        const [count, setCount] = React.useState();
+        console.log(count);
+        console.log(setCount);
+        return (
+            <div>
+            <P />
+            <Btn />    
+        </div>
+        );
+    }
+
+    ReactDOM.render(<App />, root);
+</script>
+</html>

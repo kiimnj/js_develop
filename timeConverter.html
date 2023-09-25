@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script type="text/babel">
+    function DistanceConverter() {
+        const [numbers, setNumbers] = React.useState(0);
+        let [inverted, setInvereted] = React.useState(false);
+        const changeHandler = (event) => {
+            console.log(event.target.value);
+            setNumbers(event.target.value);
+        }
+        const invertHandler = () => {
+            setInvereted((current) => !current);
+        }
+        const resetValue = () => {
+            setNumbers(0);
+        }
+        return (
+            <div>
+                <br />
+                <h1 className="header">DistanceConverter from {numbers}, {inverted}</h1>
+                <label htmlfor="first">Km</label>
+                <input type="text" id="first" value={inverted ? numbers/0.621371 : numbers} onChange={changeHandler} disabled={inverted}/>
+                <br />
+                <label htmlfor="second">Miles</label>
+                <input type="text" id="second" value={inverted ? numbers : (numbers*0.621371).toFixed(2)} onChange={changeHandler} disabled={!inverted}/>
+                <br />
+                <button onClick={resetValue}>Reset</button>
+                <button onClick={invertHandler}>{inverted ? "inverted_forward" : "inverted_backward"}</button>
+            </div>
+        );
+    }
+
+
+
+    function TimeConverter() {
+        const [numbers, setNumbers] = React.useState(0);
+        let [inverted, setInvereted] = React.useState(false);
+        const changeHandler = (event) => {
+            console.log(event.target.value);
+            setNumbers(event.target.value);
+        }
+        const invertHandler = () => {
+            setInvereted((current) => !current);
+        }
+        const resetValue = () => {
+            setNumbers(0);
+        }
+        return (
+            <div>
+                <br />
+                <h1 className="header">TimeConverter from {numbers}, {inverted}</h1>
+                <label htmlfor="first">분</label>
+                <input type="text" id="first" value={inverted ? numbers*60 : numbers} onChange={changeHandler} disabled={inverted}/>
+                <br />
+                <label htmlfor="second">시간</label>
+                <input type="text" id="second" value={inverted ? numbers : Math.round(numbers/60*100)/100} onChange={changeHandler} disabled={!inverted}/>
+                <br />
+                <button onClick={resetValue}>Reset</button>
+                <button onClick={invertHandler}>{inverted ? "inverted_forward" : "inverted_backward"}</button>
+            </div>
+        );
+    }
+
+
+
+    function App() {
+        const [index, setIndex] = React.useState("0");
+        const onChange = (event) => {
+            setIndex(event.target.value);
+        }
+        return (
+            <div>
+                <select value={index} onChange={onChange}>
+                    <option value="0">Select Unit Converter</option>    
+                    <option value="1">DistanceConverter</option>    
+                    <option value="2">TimeConverter</option>    
+                </select>
+                <hr />
+                {index == "0" ? "Please select unit you want to convert !" : null}
+                {index == "1" ? <DistanceConverter /> : null}
+                {index == "2" ? <TimeConverter /> : null}
+            </div>
+        )
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+</html>

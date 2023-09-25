@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script> -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script> 
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script type="text/babel">
+        function Btn({text, fontSize}) {
+        console.log(text, "is rendered...")
+        return (
+            <button style = {{
+                color : "white",
+                backgroundColor : "indigo",
+                fontSize : fontSize
+            }} >
+            {text}
+            </button>
+        );
+    }
+    
+    Btn.propTypes = {
+        text : PropTypes.string,
+        fontSize : PropTypes.number
+    }
+    function App() {
+        const [text, setText] = React.useState("Save");
+        const changeText = () => setText("Revert");
+        return (
+            <div>
+                <Btn text={text} fontSize={15}/>
+                <Btn text={20} fontSize="text"/>
+            </div>
+        )
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root)
+    
+</script>
+</html> 
+

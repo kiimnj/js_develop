@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script type="text/babel">
+        function Btn({text, onClick, color, big}) {
+        console.log(text, "is rendered...")
+        return (
+            <button style = {{
+                color : "white",
+                backgroundColor : (color ? "indigo" : "red"),
+                fontSize : (big ? 24 : 14)
+            }} onClick={onClick}>
+            {text}
+            </button>
+        );
+    }
+
+    // function SaveBtn() {
+    //     return (
+    //         <button style = {{
+    //             color : "white",
+    //             backgroundColor : "indigo"
+    //         }}>
+    //         Save
+    //         </button>
+    //     );
+    // }
+
+    // function ConfirmBtn() {
+    //     return (
+    //         <button style = {{
+    //             color : "white",
+    //             backgroundColor : "indigo"
+    //         }}>
+    //         Save
+    //         </button>
+    //     );
+    // }
+    
+    const MemoBtn = React.memo(Btn); //부분 렌더링 - 최초 렌더링 이후에는 바뀐 부분만 is rendered 출력
+    function App() {
+        const [text, setText] = React.useState("Save");
+        const changeText = () => setText("Revert");
+        return (
+            <div>
+                {/* <SaveBtn />
+                <ConfirmBtn /> */}
+                <MemoBtn text={text} onClick={changeText} color={true} big={true}/>
+                <MemoBtn text="Confirm" color={true} big={true}/>
+                <MemoBtn text="a" color={false} big={false}/>
+                <MemoBtn text="b" color={false} big={false}/>
+                <MemoBtn text="c" color={false} big={false}/>
+            </div>
+        )
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root)
+</script>
+</html>
